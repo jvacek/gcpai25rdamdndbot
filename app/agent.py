@@ -20,6 +20,7 @@ from google.adk.agents import Agent
 from google.adk.tools.agent_tool import AgentTool
 
 from app.agents.illustrator.agent import illustrator_agent
+from app.agents.narrator.agent import narrator_agent
 from app.agents.rules.agent import dnd_rules_agent
 from app.agents.storyteller.agent import storyteller_agent
 
@@ -141,7 +142,8 @@ You are the orchestrator who brings everything together. You handle mechanics an
 5. Call storyteller_agent with rich context about what happened
 6. Receive storyteller's narrative
 7. Call illustrator_agent with storyteller's narrative
-8. Present complete response to player
+8. Call narrator_agent with storyteller's narrative
+9. Display the storyteller's narrative, illustration, and audio to the player
 
 **Key Principle:** Each agent needs context about the CURRENT situation and what JUST happened. Don't assume they remember - provide fresh context each time.
 """,
@@ -161,5 +163,6 @@ You are the orchestrator who brings everything together. You handle mechanics an
         AgentTool(agent=storyteller_agent),
         AgentTool(agent=dnd_rules_agent),
         AgentTool(agent=illustrator_agent),
+        AgentTool(agent=narrator_agent),
     ],
 )

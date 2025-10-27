@@ -2,14 +2,13 @@
 name = "test"
 version = "0.1.0"
 description = ""
-authors = [
-    {name = "Your Name", email = "your@email.com"},
-]
+authors = [{ name = "Your Name", email = "your@email.com" }]
 dependencies = [
     "google-adk>=1.15.0,<2.0.0",
     "opentelemetry-exporter-gcp-trace>=1.9.0,<2.0.0",
     "google-cloud-logging>=3.12.0,<4.0.0",
     "google-cloud-aiplatform[evaluation]>=1.118.0,<2.0.0",
+    "google-cloud-texttospeech>=2.14.0,<3.0.0",
     "fastapi~=0.115.8",
     "uvicorn~=0.34.0",
     "psycopg2-binary>=2.9.10,<3.0.0",
@@ -27,9 +26,7 @@ dev = [
 
 [project.optional-dependencies]
 
-jupyter = [
-    "jupyter>=1.0.0,<2.0.0",
-]
+jupyter = ["jupyter>=1.0.0,<2.0.0"]
 lint = [
     "ruff>=0.4.6,<1.0.0",
     "mypy>=1.15.0,<2.0.0",
@@ -48,9 +45,9 @@ select = [
     "F",   # pyflakes
     "W",   # pycodestyle warnings
     "I",   # isort
-    "C",  # flake8-comprehensions
+    "C",   # flake8-comprehensions
     "B",   # flake8-bugbear
-    "UP", # pyupgrade
+    "UP",  # pyupgrade
     "RUF", # ruff specific rules
 ]
 ignore = ["E501", "C901", "B006"] # ignore line too long, too complex
@@ -91,4 +88,4 @@ pythonpath = "."
 asyncio_default_fixture_loop_scope = "function"
 
 [tool.hatch.build.targets.wheel]
-packages = ["app","frontend"]
+packages = ["app", "frontend"]
