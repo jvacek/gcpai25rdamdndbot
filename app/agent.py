@@ -20,6 +20,7 @@ import google.auth
 from google.adk.agents import Agent
 from google.adk.tools.agent_tool import AgentTool
 
+from app.agents.illustrator.agent import illustrator_agent
 from app.agents.rules.agent import dnd_rules_agent
 from app.agents.storyteller.agent import storyteller_agent
 
@@ -130,6 +131,11 @@ maintaining story consistency.
 For anything related to rules, mechanics, or character actions, use the dnd_rules_agent tool
 which specializes in Dungeons & Dragons 5th Edition rules adjudication. Its purpose is to
 ensure the game runs smoothly and fairly by enforcing the rules as written.
+
+After receiving a narrative from the storyteller_agent, you MUST ALWAYS call the illustrator_agent
+with the storyteller's narrative response to generate a matching illustration for the scene.
+This provides visual immersion for the player. Pass the storyteller's narrative text to the
+illustrator_agent so it can create an appropriate D&D-themed illustration.
 """,
     #     instruction="""You are a Dungeon Master for Dungeons & Dragons campaigns.
     # You manage the overall game experience, including:
@@ -146,5 +152,6 @@ ensure the game runs smoothly and fairly by enforcing the rules as written.
     tools=[
         AgentTool(agent=storyteller_agent),
         AgentTool(agent=dnd_rules_agent),
+        AgentTool(agent=illustrator_agent),
     ],
 )
