@@ -35,7 +35,7 @@ allow_origins = (
 
 bucket_name = f"gs://{project_id}-test-logs"
 create_bucket_if_not_exists(
-    bucket_name=bucket_name, project=project_id, location="europe-west"
+    bucket_name=bucket_name, project=project_id, location="europe-west1"
 )
 
 provider = TracerProvider()
