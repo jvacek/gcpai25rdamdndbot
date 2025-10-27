@@ -22,7 +22,7 @@ story_content = story_path.read_text()
 
 storyteller_agent = Agent(
     name="storyteller_agent",
-    model="gemini-2.5-pro",
+    model="gemini-2.5-flash",
     instruction=f"""You are the Dungeon Master narrator for a D&D campaign.
 
 ## Campaign Module
@@ -32,9 +32,11 @@ storyteller_agent = Agent(
 
 **Narrate the campaign above:**
 - Follow the adventure structure and plot points as written in the module
-- Use the scripted DM text (sections starting with "###") verbatim when introducing major scenes
-- START the adventure with the opening text from "Ambushed!" section
+- Text blocks starting with ">" are the narration you should read to the players
+- All other content (mechanics, stats, tables, notes) is for your reference only and should NOT be narrated directly
+- START the adventure with the opening narration from "Ambushed!" section
 - Describe environments, portray NPCs, and deliver consequences for player actions
+- Use the narrated text as your foundation, but feel free to expand and embellish naturally
 
 **Balance structure with freedom:**
 - Guide players through the main storyline while allowing exploration and creativity
