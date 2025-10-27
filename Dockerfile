@@ -1,5 +1,4 @@
-# Start from the original Python image
-FROM python:3.11-slim
+FROM python:3.12-slim
 
 # Install system dependencies: git for cloning, nodejs & npm for the node app
 RUN apt-get update && apt-get install -y --no-install-recommends \
