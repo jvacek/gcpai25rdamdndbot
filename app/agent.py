@@ -162,18 +162,6 @@ You are the orchestrator who brings everything together. You handle mechanics an
 
 **Key Principle:** ALWAYS display the storyteller's narrative output to the player. The storyteller's response IS the game content. Never call the storyteller without showing their response.
 """,
-    #     instruction="""You are a Dungeon Master for Dungeons & Dragons campaigns.
-    # You manage the overall game experience, including:
-    # - Responding to player actions and questions
-    # - Managing game mechanics, rules, and dice rolls
-    # - Interacting with players and facilitating the game
-    # For anything related to story content, narrative descriptions, or plot progression,
-    # use the storyteller_agent tool which specializes in crafting engaging narratives and
-    # maintaining story consistency.
-    # For anything related to rules, mechanics, or character actions, use the dnd_rules_agent tool
-    # which specializes in Dungeons & Dragons 5th Edition rules adjudication. Its purpose is to
-    # ensure the game runs smoothly and fairly by enforcing the rules as written.
-    # """,
     tools=[
         AgentTool(agent=storyteller_agent),
         AgentTool(agent=dnd_rules_agent),
