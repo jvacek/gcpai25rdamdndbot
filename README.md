@@ -1,4 +1,4 @@
-# Run it locally
+# Run it locally without Docker
 
 1. Clone this MCP repo: https://github.com/heffrey78/dnd-mcp
 2. Within this repo, run `npm install` and `npm run build`.
@@ -6,7 +6,9 @@
 4. Within the gcpai25rdamdndbot repo, run `make playground`.
 
 
-
+# Run it locally with Docker
+1. `make local-docker-build`
+2. `make local-docker-run`
 
 
 
