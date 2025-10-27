@@ -1,14 +1,16 @@
+# Start from the original Python image
 FROM python:3.12-slim
 
-# Install system dependencies (git, curl, node)
-RUN apt-get update && apt-get install -y curl git && \
-    curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && \
-    apt-get install -y nodejs && \
-    rm -rf /var/lib/apt/lists/*
+# Install system dependencies: git for cloning, nodejs & npm for the node app
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    git \
+    nodejs \
+    npm \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
-# Install uv (Python project manager)
-RUN curl -LsSf https://astral.sh/uv/install.sh | sh && \
-    ln -s /root/.cargo/bin/uv /usr/local/bin/uv
+# Install uv (Python package manager)
+RUN pip install --no-cache-dir uv==0.8.13
 
 WORKDIR /code
 
