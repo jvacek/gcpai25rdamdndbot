@@ -16,4 +16,4 @@ repository_owner = "Your GitHub organization or username."
 repository_name = "test"
 
 # The Google Cloud region you will use to deploy the infrastructure
-region = "europe-west"
+region = "europe-west1"
