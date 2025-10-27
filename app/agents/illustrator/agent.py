@@ -12,14 +12,18 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from io import BytesIO
 import logging
 import uuid
+from PIL import Image
 
 from google.adk.agents import Agent
 from google.adk.tools import ToolContext
 from google.genai import types as genai_types
 from vertexai.preview.vision_models import ImageGenerationModel
-
+from google.genai import types
+from google import genai
+from google.genai.types import HttpOptions
 
 def _create_imagen_prompt(narrative: str) -> str:
     """Convert a D&D narrative into an optimized Imagen prompt.
@@ -53,28 +57,38 @@ async def generate_illustration_tool(narrative: str, tool_context: ToolContext) 
     Returns:
         The filename of the saved illustration artifact
     """
-    # Initialize Imagen model
-    model = ImageGenerationModel.from_pretrained("imagen-3.0-generate-001")
+    # Initialize genai client
+    client = genai.Client(http_options=HttpOptions(api_version="v1"))
 
     # Create an optimized prompt for D&D fantasy art
     prompt = _create_imagen_prompt(narrative)
 
     logging.info(f"Generating illustration with prompt: {prompt[:100]}...")
 
-    # Generate the image
-    response = model.generate_images(
-        prompt=prompt,
-        number_of_images=1,
-        aspect_ratio="1:1",
-        safety_filter_level="block_some",
-        person_generation="allow_adult",
+    response = client.models.generate_content(
+        model="gemini-2.5-flash-image",
+        contents=prompt,
+        config=types.GenerateContentConfig(
+            image_config=types.ImageConfig(
+                aspect_ratio='1:1',
+            ),
+            response_modalities=['Image'],
+        ),
     )
 
-    if not response or not response.images:
-        raise ValueError("No images were generated")
+    image_parts = [
+        part.inline_data.data
+        for part in response.candidates[0].content.parts
+        if part.inline_data
+    ]
 
-    # Get the image bytes from the first generated image
-    image_bytes = response.images[0]._image_bytes
+    if image_parts:
+        image = Image.open(BytesIO(image_parts[0]))
+        buffer = BytesIO()
+        image.save(buffer, format='PNG')
+        image_bytes = buffer.getvalue()
+    else:
+        raise ValueError("No images were generated")
 
     # Create a unique filename for the illustration
     filename = f"illustration_{uuid.uuid4().hex[:8]}.png"
