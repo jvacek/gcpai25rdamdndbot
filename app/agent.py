@@ -20,7 +20,7 @@ import google.auth
 from google.adk.agents import Agent
 from google.adk.tools.agent_tool import AgentTool
 
-from app.agents.storyteller import storyteller_agent
+from app.agents.storyteller.agent import storyteller_agent
 
 _, project_id = google.auth.default()
 os.environ.setdefault("GOOGLE_CLOUD_PROJECT", project_id)
