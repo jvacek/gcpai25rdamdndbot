@@ -20,6 +20,7 @@ import google.auth
 from google.adk.agents import Agent
 from google.adk.tools.agent_tool import AgentTool
 
+from app.agents.rules.agent import dnd_rules_agent
 from app.agents.storyteller.agent import storyteller_agent
 
 _, project_id = google.auth.default()
@@ -73,6 +74,14 @@ You manage the overall game experience, including:
 
 For anything related to story content, narrative descriptions, or plot progression,
 use the storyteller_agent tool which specializes in crafting engaging narratives and
-maintaining story consistency.""",
-    tools=[get_weather, get_current_time, AgentTool(agent=storyteller_agent)],
+maintaining story consistency.
+
+For anything related to rules, mechanics, or character actions, use the dnd_rules_agent tool
+which specializes in Dungeons & Dragons 5th Edition rules adjudication. Its purpose is to
+ensure the game runs smoothly and fairly by enforcing the rules as written.
+""",
+    tools=[
+        AgentTool(agent=storyteller_agent),
+        AgentTool(agent=dnd_rules_agent),
+    ],
 )

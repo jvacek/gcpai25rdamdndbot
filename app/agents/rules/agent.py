@@ -19,7 +19,7 @@ os.environ.setdefault("GOOGLE_CLOUD_PROJECT", project_id)
 os.environ.setdefault("GOOGLE_CLOUD_LOCATION", "global")
 os.environ.setdefault("GOOGLE_GENAI_USE_VERTEXAI", "True")
 
-root_agent = LlmAgent(
+dnd_rules_agent = LlmAgent(
     model="gemini-2.5-flash",
     name="dnd_rules_agent",
     instruction="""
