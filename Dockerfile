@@ -1,24 +1,23 @@
-# Start from the original Python image
+# Stage 1: Build the Node.js application
+FROM node:22 AS node-builder
+
+# Clone and build the dnd-mcp repository
+RUN git clone https://github.com/heffrey78/dnd-mcp.git /tmp/dnd-mcp
+WORKDIR /tmp/dnd-mcp
+RUN npm install && npm run build
+
+# Stage 2: Main Python application
 FROM python:3.12-slim
 
-# Install system dependencies: git for cloning, nodejs & npm for the node app
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    git \
-    nodejs \
-    npm \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
+# Install system dependencies (no longer need nodejs/npm)
 
 # Install uv (Python package manager)
 RUN pip install --no-cache-dir uv==0.9.5
 
 WORKDIR /code
 
-# --- Clone and build the dnd-mcp repository ---
-RUN git clone https://github.com/heffrey78/dnd-mcp.git /tmp/dnd-mcp && \
-    cd /tmp/dnd-mcp && \
-    npm install && \
-    npm run build
+# Copy the built Node.js application from the builder stage
+COPY --from=node-builder /tmp/dnd-mcp /tmp/dnd-mcp
 
 # Copy Python application files
 COPY ./pyproject.toml ./README.md ./uv.lock* ./
