@@ -1,4 +1,5 @@
 import os
+import pathlib
 
 import google.auth
 from google.adk.agents import LlmAgent
@@ -8,7 +9,10 @@ from mcp import StdioServerParameters
 
 # Define the path to your D&D MCP server
 # IMPORTANT: This MUST be an ABSOLUTE path to your D&D MCP server directory
-DND_MCP_SERVER_PATH = "/Users/cedricdeboom/Documents/playground/rotterdam/dnd-mcp"
+DND_MCP_SERVER_PATH = os.environ.get(
+    "DND_MCP_SERVER_PATH",
+    pathlib.Path(__file__).parent.parent.parent.parent / "dnd-mcp",
+)
 
 _, project_id = google.auth.default()
 os.environ.setdefault("GOOGLE_CLOUD_PROJECT", project_id)
@@ -16,16 +20,16 @@ os.environ.setdefault("GOOGLE_CLOUD_LOCATION", "global")
 os.environ.setdefault("GOOGLE_GENAI_USE_VERTEXAI", "True")
 
 root_agent = LlmAgent(
-    model="gemini-2.0-flash",
-    name="dnd_assistant_agent",
+    model="gemini-2.5-flash",
+    name="dnd_rules_agent",
     instruction="""
-    You are a helpful D&D 5e assistant. Use the available MCP tools to help users with:
+    You are a helpful D&D 5e assistant and rules expert. Use the available MCP tools to help users with:
     - Character creation and management
     - Spell lookups and information
     - Equipment and item details
     - Rule clarifications
     - Combat mechanics
-    
+
     Always be helpful and provide accurate D&D 5e information using the tools available to you.
     """,
     tools=[

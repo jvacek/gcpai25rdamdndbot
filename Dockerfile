@@ -27,6 +27,10 @@ RUN uv sync --frozen
 ARG COMMIT_SHA=""
 ENV COMMIT_SHA=${COMMIT_SHA}
 
+# TODO: Pass in the DND_MCP_SERVER_PATH build argument when building the Docker image
+ARG DND_MCP_SERVER_PATH=""
+ENV DND_MCP_SERVER_PATH=${DND_MCP_SERVER_PATH}
+
 EXPOSE 8080
 
 CMD ["uv", "run", "uvicorn", "app.server:app", "--host", "0.0.0.0", "--port", "8080"]
