@@ -10,7 +10,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
 # Install uv (Python package manager)
-RUN pip install --no-cache-dir uv==0.8.13
+RUN pip install --no-cache-dir uv==0.9.5
 
 WORKDIR /code
 
@@ -32,7 +32,7 @@ ARG COMMIT_SHA=""
 ENV COMMIT_SHA=${COMMIT_SHA}
 
 # Point DND_MCP_SERVER_PATH to the built JS file
-ENV DND_MCP_SERVER_PATH="/tmp/dnd-mcp/dist/index.js"
+ENV DND_MCP_SERVER_PATH="/tmp/dnd-mcp"
 
 EXPOSE 8080
 
