@@ -18,6 +18,9 @@ from zoneinfo import ZoneInfo
 
 import google.auth
 from google.adk.agents import Agent
+from google.adk.tools.agent_tool import AgentTool
+
+from app.agents.storyteller import storyteller_agent
 
 _, project_id = google.auth.default()
 os.environ.setdefault("GOOGLE_CLOUD_PROJECT", project_id)
@@ -61,6 +64,15 @@ def get_current_time(query: str) -> str:
 root_agent = Agent(
     name="root_agent",
     model="gemini-2.5-flash",
-    instruction="You are a helpful AI assistant designed to provide accurate and useful information.",
-    tools=[get_weather, get_current_time],
+    instruction="""You are a Dungeon Master for Dungeons & Dragons campaigns.
+
+You manage the overall game experience, including:
+- Responding to player actions and questions
+- Managing game mechanics, rules, and dice rolls
+- Interacting with players and facilitating the game
+
+For anything related to story content, narrative descriptions, or plot progression,
+use the storyteller_agent tool which specializes in crafting engaging narratives and
+maintaining story consistency.""",
+    tools=[get_weather, get_current_time, AgentTool(agent=storyteller_agent)],
 )
