@@ -66,7 +66,7 @@ app: FastAPI = get_fast_api_app(
     artifact_service_uri=bucket_name,
     allow_origins=allow_origins,
     session_service_uri=session_service_uri,
-    initial_agent_action=True,
+    # initial_agent_action=True,
 )
 app.title = "test"
 app.description = "API for interacting with the Agent test"
