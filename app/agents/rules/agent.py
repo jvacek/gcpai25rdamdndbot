@@ -8,10 +8,7 @@ from mcp import StdioServerParameters
 
 # Define the path to your D&D MCP server
 # IMPORTANT: This MUST be an ABSOLUTE path to your D&D MCP server directory
-DND_MCP_SERVER_PATH = os.environ.get(
-    "DND_MCP_SERVER_PATH",
-    pathlib.Path(__file__).parent.parent.parent.parent / "dnd-mcp",
-)
+DND_MCP_SERVER_PATH = pathlib.Path(__file__).parent.parent.parent.parent / "dnd-mcp"
 
 dnd_rules_agent = LlmAgent(
     model="gemini-2.5-flash",
