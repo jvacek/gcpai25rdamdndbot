@@ -44,6 +44,6 @@ async def narrator(text: str, tool_context: ToolContext) -> dict:
 narrator_agent = Agent(
     name="narrator_agent",
     model="gemini-2.5-flash",
-    instruction="Read aloud in a dark, scary but fast-paced style.",
+    instruction="Read the summary aloud in a dark, scary but fast-paced style and return audio.",
     tools=[narrator],
 )
