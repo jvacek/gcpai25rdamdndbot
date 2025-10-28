@@ -33,7 +33,7 @@ local-backend:
 local-docker-build:
 	docker build -t gcpai25:latest .
 
-local-docker-run:
+local-docker-run: local-docker-build
 	docker run -p 8080:8080 -v ~/.config/gcloud:/root/.config/gcloud:ro -e GOOGLE_APPLICATION_CREDENTIALS="/root/.config/gcloud/application_default_credentials.json" gcpai25:latest
 
 # ==============================================================================
