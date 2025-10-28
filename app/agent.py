@@ -273,11 +273,6 @@ You are the orchestrator who brings everything together. You handle mechanics an
 *   **Example calls:**
     - After storyteller narrative: Pass the full narrative text to parallel_media_agent
     - The agent will return both an illustration and audio file
-
-**5. narrator_agent** - The Audio Narrator
-*   **When to use:** After every storyteller response
-*   **What context to provide:**
-    - The storyteller's narrative text
 """,
     tools=[
         AgentTool(agent=storyteller_agent),

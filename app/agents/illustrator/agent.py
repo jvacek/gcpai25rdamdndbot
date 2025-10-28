@@ -34,10 +34,6 @@ def _create_imagen_prompt(narrative: str) -> str:
     Returns:
         An optimized prompt for fantasy illustration generation
     """
-    # Extract key elements and create a focused prompt
-    # Keep the narrative but add style guidance
-    base_prompt = f"{narrative[:500]}"  # Limit length for better results
-
     # Add style modifiers for consistent D&D fantasy art
     style_suffix = (
         " | Fantasy art style, Dungeons and Dragons, detailed illustration, "
@@ -45,7 +41,7 @@ def _create_imagen_prompt(narrative: str) -> str:
         "painterly style, rich colors"
     )
 
-    return base_prompt + style_suffix
+    return narrative + style_suffix
 
 
 async def generate_illustration_tool(narrative: str, tool_context: ToolContext) -> str:
