@@ -20,6 +20,7 @@ playground:
 	@echo "|                                                                             |"
 	@echo "| 🔍 IMPORTANT: Select the 'app' folder to interact with your agent.          |"
 	@echo "==============================================================================="
+	cd dnd-mcp && npm install && npm run build
 	uv run adk web . --port 8501 --reload_agents
 
 # ==============================================================================
