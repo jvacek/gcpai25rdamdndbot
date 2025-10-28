@@ -2,12 +2,15 @@
 
 1. Clone this MCP repo: https://github.com/heffrey78/dnd-mcp
 2. Within this repo, run `npm install` and `npm run build`.
-3. Within the gcpai25rdamdndbot repo, run `make playground`.
+3. Export the environment variable `export DND_MCP_SERVER_PATH=/path/to/dnd-mcp-repo`
+4. Within the gcpai25rdamdndbot repo, run `make playground`.
+
 
 # Run it locally with Docker
-
 1. `make local-docker-build`
 2. `make local-docker-run`
+
+
 
 # test
 
@@ -36,11 +39,11 @@ test/
 ## Requirements
 
 Before you begin, ensure you have:
-
 - **uv**: Python package manager (used for all dependency management in this project) - [Install](https://docs.astral.sh/uv/getting-started/installation/) ([add packages](https://docs.astral.sh/uv/concepts/dependencies/) with `uv add <package>`)
 - **Google Cloud SDK**: For GCP services - [Install](https://cloud.google.com/sdk/docs/install)
 - **Terraform**: For infrastructure deployment - [Install](https://developer.hashicorp.com/terraform/downloads)
 - **make**: Build automation tool - [Install](https://www.gnu.org/software/make/) (pre-installed on most Unix-based systems)
+
 
 ## Quick Start (Local Testing)
 
@@ -52,17 +55,18 @@ make install && make playground
 
 ## Commands
 
-| Command              | Description                                                                                                      |
-| -------------------- | ---------------------------------------------------------------------------------------------------------------- |
-| `make install`       | Install all required dependencies using uv                                                                       |
-| `make playground`    | Launch local development environment with backend and frontend - leveraging `adk web` command.                   |
+| Command              | Description                                                                                 |
+| -------------------- | ------------------------------------------------------------------------------------------- |
+| `make install`       | Install all required dependencies using uv                                                  |
+| `make playground`    | Launch local development environment with backend and frontend - leveraging `adk web` command.|
 | `make backend`       | Deploy agent to Cloud Run (use `IAP=true` to enable Identity-Aware Proxy, `PORT=8080` to specify container port) |
-| `make local-backend` | Launch local development server with hot-reload                                                                  |
-| `make test`          | Run unit and integration tests                                                                                   |
-| `make lint`          | Run code quality checks (codespell, ruff, mypy)                                                                  |
-| `make setup-dev-env` | Set up development environment resources using Terraform                                                         |
+| `make local-backend` | Launch local development server with hot-reload |
+| `make test`          | Run unit and integration tests                                                              |
+| `make lint`          | Run code quality checks (codespell, ruff, mypy)                                             |
+| `make setup-dev-env` | Set up development environment resources using Terraform                         |
 
 For full command options and usage, refer to the [Makefile](Makefile).
+
 
 ## Usage
 
@@ -75,6 +79,7 @@ This template follows a "bring your own agent" approach - you focus on your busi
 5. **Monitor:** Track performance and gather insights using Cloud Logging, Tracing, and the Looker Studio dashboard to iterate on your application.
 
 The project includes a `GEMINI.md` file that provides context for AI tools like Gemini CLI when asking questions about your template.
+
 
 ## Deployment
 
@@ -89,6 +94,7 @@ gcloud config set project <your-dev-project-id>
 make backend
 ```
 
+
 The repository includes a Terraform configuration for the setup of the Dev Google Cloud project.
 See [deployment/README.md](deployment/README.md) for instructions.
 
@@ -96,8 +102,9 @@ See [deployment/README.md](deployment/README.md) for instructions.
 
 The repository includes a Terraform configuration for the setup of a production Google Cloud project. Refer to [deployment/README.md](deployment/README.md) for detailed instructions on how to deploy the infrastructure and application.
 
-## Monitoring and Observability
 
-> You can use [this Looker Studio dashboard](https://lookerstudio.google.com/reporting/46b35167-b38b-4e44-bd37-701ef4307418/page/tEnnC) template for visualizing events being logged in BigQuery. See the "Setup Instructions" tab to getting started.
+## Monitoring and Observability
+> You can use [this Looker Studio dashboard](https://lookerstudio.google.com/reporting/46b35167-b38b-4e44-bd37-701ef4307418/page/tEnnC
+) template for visualizing events being logged in BigQuery. See the "Setup Instructions" tab to getting started.
 
 The application uses OpenTelemetry for comprehensive observability with all events being sent to Google Cloud Trace and Logging for monitoring and to BigQuery for long term storage.
