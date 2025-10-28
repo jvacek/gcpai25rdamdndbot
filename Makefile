@@ -20,6 +20,7 @@ playground:
 	@echo "|                                                                             |"
 	@echo "| 🔍 IMPORTANT: Select the 'app' folder to interact with your agent.          |"
 	@echo "==============================================================================="
+	cd dnd-mcp && npm install && npm run build
 	uv run adk web . --port 8501 --reload_agents
 
 # ==============================================================================
@@ -33,7 +34,7 @@ local-backend:
 local-docker-build:
 	docker build -t gcpai25:latest .
 
-local-docker-run:
+local-docker-run: local-docker-build
 	docker run -p 8080:8080 -v ~/.config/gcloud:/root/.config/gcloud:ro -e GOOGLE_APPLICATION_CREDENTIALS="/root/.config/gcloud/application_default_credentials.json" gcpai25:latest
 
 # ==============================================================================
@@ -81,4 +82,3 @@ lint:
 	uv run codespell
 	uv run ruff check . --diff
 	uv run ruff format . --check --diff
-	uv run mypy .

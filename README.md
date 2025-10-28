@@ -2,8 +2,7 @@
 
 1. Clone this MCP repo: https://github.com/heffrey78/dnd-mcp
 2. Within this repo, run `npm install` and `npm run build`.
-3. Export the environment variable `export DND_MCP_SERVER_PATH=/path/to/dnd-mcp-repo`
-4. Within the gcpai25rdamdndbot repo, run `make playground`.
+3. Within the gcpai25rdamdndbot repo, run `make playground`.
 
 # Run it locally with Docker
 
