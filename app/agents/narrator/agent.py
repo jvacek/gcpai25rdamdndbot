@@ -13,8 +13,8 @@ async def narrator(text: str, tool_context: ToolContext) -> dict:
     synthesis_input = texttospeech.SynthesisInput(text=text)
 
     MODEL = "gemini-2.5-flash-tts"
-    VOICE = "Fenrir"
-    LANGUAGE_CODE = "en-gb"
+    VOICE = "Algenib"
+    LANGUAGE_CODE = "en-us"
 
     voice = texttospeech.VoiceSelectionParams(
         name=VOICE, language_code=LANGUAGE_CODE, model_name=MODEL
@@ -44,6 +44,6 @@ async def narrator(text: str, tool_context: ToolContext) -> dict:
 narrator_agent = Agent(
     name="narrator_agent",
     model="gemini-2.5-flash",
-    instruction="You are a narrator agent. You will receive text and you will convert it to speech using the narrator tool. You must call the tool directly and not ask for confirmation.",
+    instruction="Read aloud in a dark, scary but fast-paced style.",
     tools=[narrator],
 )
