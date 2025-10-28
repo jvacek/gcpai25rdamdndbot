@@ -20,8 +20,7 @@ from google.adk.agents import Agent
 from google.adk.tools.agent_tool import AgentTool
 
 from app.agents.character.agent import character_agent
-from app.agents.illustrator.agent import illustrator_agent
-from app.agents.narrator.agent import narrator_agent
+from app.agents.media_generator.agent import parallel_media_agent
 from app.agents.rules.agent import dnd_rules_agent
 from app.agents.storyteller.agent import storyteller_agent
 
@@ -185,16 +184,18 @@ You are the orchestrator who brings everything together. You handle mechanics an
     - Character build recommendations
     - And many more!
 
-**4. illustrator_agent** - The Visual Artist
+**4. parallel_media_agent** - The Multimedia Generator (Illustration + Audio)
 *   **When to use:** After every narrative response from storyteller_agent
+*   **What it does:** Runs illustrator_agent and narrator_agent in parallel to generate both visual artwork and audio narration simultaneously
 *   **What context to provide:**
-    - Create a focused SCENE DESCRIPTION that emphasizes visual elements
-    - Include: location details, character positions, lighting, atmosphere, notable objects/creatures
-    - Extract the key visual moment from the storyteller's narrative
-    - Focus on what would make a compelling illustration, not dialogue or mechanics
+    - Pass the COMPLETE narrative text from storyteller_agent
+    - The parallel agent will automatically:
+      * Generate a scene illustration based on visual elements
+      * Create audio narration from the full narrative text
+    - Both outputs will be created concurrently for efficiency
 *   **Example calls:**
-    - After storyteller describes new location: "A dimly lit tavern with weathered oak tables, a roaring fireplace casting dancing shadows. The half-elf bard stands near the bar, lute in hand, facing a suspicious cloaked figure at a corner table."
-    - After combat narrative: "The battlefield aftermath: three fallen goblins lie scattered on the forest path, moonlight filtering through ancient trees, the warrior stands victorious with raised sword, breathing heavily."
+    - After storyteller narrative: Pass the full narrative text to parallel_media_agent
+    - The agent will return both an illustration and audio file
 
 ### The Coordination Pattern:
 
@@ -211,15 +212,13 @@ You are the orchestrator who brings everything together. You handle mechanics an
 5. Process mechanics (roll dice, calculate results using modifiers from character_agent)
 6. Call storyteller_agent with rich context about what happened
 7. Output the storyteller's narrative response directly to the player, avoid leaking DM notes or instructions
-8. Call illustrator_agent with a focused scene description of the narrative moment to generate accompanying artwork
-9. Present the illustration to the player
-10. Call narrator_agent with storyteller's narrative response to generate audio narration
+8. Call parallel_media_agent with the storyteller's narrative to generate both illustration and audio narration concurrently
+9. Present both the illustration and audio to the player
 """,
     tools=[
         AgentTool(agent=storyteller_agent),
         AgentTool(agent=dnd_rules_agent),
-        AgentTool(agent=illustrator_agent),
-        AgentTool(agent=narrator_agent),
+        AgentTool(agent=parallel_media_agent),
         AgentTool(agent=character_agent),
     ],
 )
