@@ -296,8 +296,8 @@ You are the orchestrator who brings everything together. You handle mechanics an
     tools=[
         AgentTool(agent=storyteller_agent),
         AgentTool(agent=dnd_rules_agent),
-        # AgentTool(agent=illustrator_agent),
-        # AgentTool(agent=narrator_agent),
+        AgentTool(agent=illustrator_agent),
+        AgentTool(agent=narrator_agent),
         AgentTool(agent=character_agent),
         roll_dice,
     ],
